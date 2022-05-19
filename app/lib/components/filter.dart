@@ -17,7 +17,7 @@ class _FilterComponentState extends State<FilterComponent> {
     return Container(child: Center(
       child: Row(
         children: [
-          FloatingActionButton(onPressed: onPressed, child: Text("Naciśnij"))
+
         ],
       ),
     ));

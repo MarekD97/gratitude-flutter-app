@@ -66,6 +66,12 @@ class _CreateEntryViewState extends State<CreateEntryView> {
                   )
                 ]),
                 child: TextFormField(
+                  validator: (value) {
+                    if(value == null || value.isEmpty || value.length > 150) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     filled: true,

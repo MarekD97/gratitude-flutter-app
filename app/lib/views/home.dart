@@ -1,4 +1,4 @@
-import 'package:app/components/filter.dart';
+import 'package:app/components/entry_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -9,7 +9,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   int currentTabIndex = 0;
 
   @override
@@ -25,16 +24,22 @@ class _HomeViewState extends State<HomeView> {
                 floating: true,
                 pinned: true,
                 snap: true,
-                bottom: TabBar(tabs: const [
-                  Tab(
-                    child: Text('Wdzięcznica'),
-                  ),
-                  Tab(
-                    child: Text('Moje wpisy'),
-                  ),
-                ], onTap: (index) {setState(() {
-                  currentTabIndex = index;
-                });},),
+                forceElevated: true,
+                bottom: TabBar(
+                  tabs: const [
+                    Tab(
+                      child: Text('Wdzięcznica'),
+                    ),
+                    Tab(
+                      child: Text('Moje wpisy'),
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      currentTabIndex = index;
+                    });
+                  },
+                ),
                 actions: <Widget>[
                   PopupMenuButton<String>(
                     itemBuilder: (context) => [
@@ -70,10 +75,27 @@ class _HomeViewState extends State<HomeView> {
               )
             ];
           },
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              FilterComponent(),
-              Center(child: Text('Moje wpisy')),
+              SingleChildScrollView(
+                  child: Column(
+                children: [
+
+                  EntryCardWidget(
+                    onFavoritePressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              const AlertDialog(title: Text("xyz")));
+                    },
+                  ),
+                  const EntryCardWidget(),
+                  const EntryCardWidget(),
+                  const EntryCardWidget(),
+                  const EntryCardWidget(),
+                ],
+              )),
+              const Center(child: Text('Moje wpisy')),
             ],
           ),
         ),
@@ -109,7 +131,8 @@ class _HomeViewState extends State<HomeView> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/create', arguments: currentTabIndex == 0);
+            Navigator.pushNamed(context, '/create',
+                arguments: currentTabIndex == 0);
           },
           backgroundColor: const Color(0xFF377E51),
           child: const Icon(Icons.add),

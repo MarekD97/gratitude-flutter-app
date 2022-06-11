@@ -98,9 +98,9 @@ class _CreateEntryViewState extends State<CreateEntryView> {
                   onPressed: () {
                     log(published ? "Opublikowany" : "Nieopublikowany");
                   },
-                  child: Container(
+                  child: const SizedBox(
                     width: double.infinity,
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         "Zapisz",

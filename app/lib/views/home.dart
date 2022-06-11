@@ -1,4 +1,6 @@
 import 'package:app/components/entry_card_widget.dart';
+import 'package:app/components/filter_chips_widget.dart';
+import 'package:app/main.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,18 +22,18 @@ class _HomeViewState extends State<HomeView> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                title: const Text('Grateful day'),
+                title: Text(AppLocalizations.of(context)!.getText("gratefulDay")),
                 floating: true,
                 pinned: true,
                 snap: true,
                 forceElevated: true,
                 bottom: TabBar(
-                  tabs: const [
+                  tabs: [
                     Tab(
-                      child: Text('Wdzięcznica'),
+                      child: Text(AppLocalizations.of(context)!.getText("gratitude")),
                     ),
                     Tab(
-                      child: Text('Moje wpisy'),
+                      child: Text(AppLocalizations.of(context)!.getText('myEntries')),
                     ),
                   ],
                   onTap: (index) {
@@ -80,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
               SingleChildScrollView(
                   child: Column(
                 children: [
-
+                  const FilterChipsWidget(),
                   EntryCardWidget(
                     onFavoritePressed: () {
                       showDialog(
@@ -88,6 +90,7 @@ class _HomeViewState extends State<HomeView> {
                           builder: (BuildContext context) =>
                               const AlertDialog(title: Text("xyz")));
                     },
+                    text: "xyz",
                   ),
                   const EntryCardWidget(),
                   const EntryCardWidget(),
@@ -95,34 +98,34 @@ class _HomeViewState extends State<HomeView> {
                   const EntryCardWidget(),
                 ],
               )),
-              const Center(child: Text('Moje wpisy')),
+              Center(child: Text(AppLocalizations.of(context)!.getText("myEntries"))),
             ],
           ),
         ),
         drawer: Drawer(
           child: Column(
             children: [
-              const DrawerHeader(child: Text("Menu aplikacji")),
+              DrawerHeader(child: Text(AppLocalizations.of(context)!.getText("appMenu"))),
               ListTile(
-                title: const Text('O aplikacji'),
+                title: Text(AppLocalizations.of(context)!.getText("aboutApp")),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: const Text('Ustawienia'),
+                title: Text(AppLocalizations.of(context)!.getText("settings")),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               const Spacer(),
               ListTile(
-                  title: const Text('Zaloguj się'),
+                  title: Text(AppLocalizations.of(context)!.getText("login")),
                   onTap: () {
                     Navigator.pop(context);
                   }),
               ListTile(
-                  title: const Text('Zarejestruj się'),
+                  title: Text(AppLocalizations.of(context)!.getText("signup")),
                   onTap: () {
                     Navigator.pop(context);
                   }),

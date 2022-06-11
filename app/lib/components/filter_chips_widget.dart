@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 
-class FilterComponent extends StatefulWidget {
-  const FilterComponent({Key? key}) : super(key: key);
+class FilterChipsWidget extends StatefulWidget {
+  const FilterChipsWidget({Key? key}) : super(key: key);
 
   @override
-  _FilterComponentState createState() => _FilterComponentState();
+  _FilterChipsWidgetState createState() => _FilterChipsWidgetState();
 }
 
-class _FilterComponentState extends State<FilterComponent> {
+class _FilterChipsWidgetState extends State<FilterChipsWidget> {
 
-  void onPressed() {
+  List<String> labels = ["Zatwierdzone", "Niezatwierdzone", "Wszystkie"];
 
+  List<Widget> chipsBuilder({filters}) {
+    List<Widget> chipsList = <Widget>[];
+
+    labels.map((label) => {
+          chipsList.add(
+            Container(
+                margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+                child: Chip(label: Text(label))),
+          )
+        }).toList();
+
+    return chipsList;
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(
-      child: Row(
-        children: [
-
-        ],
-      ),
-    ));
+    return Row(
+      children: chipsBuilder()
+    );
   }
 }

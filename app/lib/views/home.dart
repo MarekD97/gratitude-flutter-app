@@ -1,7 +1,5 @@
-import 'package:app/components/entry_card_widget.dart';
+import 'package:app/components/entry_list_widget.dart';
 import 'package:app/main.dart';
-import 'package:app/models/entry_model.dart';
-import 'package:app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,15 +11,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int currentTabIndex = 0;
-
-  late Future<List<Entry>> futureEntries;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    futureEntries = fetchLocalEntries();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,32 +81,7 @@ class _HomeViewState extends State<HomeView> {
           },
           body: TabBarView(
             children: [
-              FutureBuilder(
-                  future: futureEntries,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<Entry> entries = (snapshot.data! as List<Entry>);
-                      List<Widget> widgets = <Widget>[];
-                      entries
-                          .map((entry) => {
-                                widgets.add(EntryCardWidget(
-                                  text: entry.content,
-                                  onFavoritePressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            const AlertDialog(
-                                                title: Text("xyz")));
-                                  },
-                                ))
-                              })
-                          .toList();
-                      widgets.add(const SizedBox(height: 80.0,));
-                      return SingleChildScrollView(
-                          child: Column(children: widgets));
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  }),
+              const EntryListWidget(),
               Center(
                   child:
                       Text(AppLocalizations.of(context)!.getText("myEntries"))),

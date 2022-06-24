@@ -27,7 +27,7 @@ void main() {
       GlobalWidgetsLocalizations.delegate,
     ],
     supportedLocales: const [Locale('en', ''), Locale('pl', '')],
-    locale: const Locale("en"), // switch between en and pl to see effect
+    locale: const Locale("pl"), // switch between en and pl to see effect
   ));
 }
 

@@ -1,6 +1,7 @@
 import 'package:app/components/entry_card_widget.dart';
-import 'package:app/components/filter_chips_widget.dart';
 import 'package:app/main.dart';
+import 'package:app/models/entry_model.dart';
+import 'package:app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,6 +14,15 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int currentTabIndex = 0;
 
+  late Future<List<Entry>> futureEntries;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    futureEntries = fetchLocalEntries();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,7 +32,8 @@ class _HomeViewState extends State<HomeView> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                title: Text(AppLocalizations.of(context)!.getText("gratefulDay")),
+                title:
+                    Text(AppLocalizations.of(context)!.getText("gratefulDay")),
                 floating: true,
                 pinned: true,
                 snap: true,
@@ -30,10 +41,12 @@ class _HomeViewState extends State<HomeView> {
                 bottom: TabBar(
                   tabs: [
                     Tab(
-                      child: Text(AppLocalizations.of(context)!.getText("gratitude")),
+                      child: Text(
+                          AppLocalizations.of(context)!.getText("gratitude")),
                     ),
                     Tab(
-                      child: Text(AppLocalizations.of(context)!.getText('myEntries')),
+                      child: Text(
+                          AppLocalizations.of(context)!.getText('myEntries')),
                     ),
                   ],
                   onTap: (index) {
@@ -79,33 +92,44 @@ class _HomeViewState extends State<HomeView> {
           },
           body: TabBarView(
             children: [
-              SingleChildScrollView(
-                  child: Column(
-                children: [
-                  const FilterChipsWidget(),
-                  EntryCardWidget(
-                    onFavoritePressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              const AlertDialog(title: Text("xyz")));
-                    },
-                    text: "xyz",
-                  ),
-                  const EntryCardWidget(),
-                  const EntryCardWidget(),
-                  const EntryCardWidget(),
-                  const EntryCardWidget(),
-                ],
-              )),
-              Center(child: Text(AppLocalizations.of(context)!.getText("myEntries"))),
+              FutureBuilder(
+                  future: futureEntries,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Entry> entries = (snapshot.data! as List<Entry>);
+                      List<Widget> widgets = <Widget>[];
+                      entries
+                          .map((entry) => {
+                                widgets.add(EntryCardWidget(
+                                  text: entry.content,
+                                  onFavoritePressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            const AlertDialog(
+                                                title: Text("xyz")));
+                                  },
+                                ))
+                              })
+                          .toList();
+                      widgets.add(const SizedBox(height: 80.0,));
+                      return SingleChildScrollView(
+                          child: Column(children: widgets));
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  }),
+              Center(
+                  child:
+                      Text(AppLocalizations.of(context)!.getText("myEntries"))),
             ],
           ),
         ),
         drawer: Drawer(
           child: Column(
             children: [
-              DrawerHeader(child: Text(AppLocalizations.of(context)!.getText("appMenu"))),
+              DrawerHeader(
+                  child:
+                      Text(AppLocalizations.of(context)!.getText("appMenu"))),
               ListTile(
                 title: Text(AppLocalizations.of(context)!.getText("aboutApp")),
                 onTap: () {

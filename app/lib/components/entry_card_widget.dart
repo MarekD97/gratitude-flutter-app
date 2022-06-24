@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:app/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +15,7 @@ class EntryCardWidget extends StatelessWidget {
   final String text;
 
   Color randomColor() {
-    int randomNumber = Random().nextInt(3);
+    int randomNumber = (text.codeUnitAt(0)+text.codeUnitAt(1))%3;
     switch (randomNumber) {
       case 0:
         return GratitudeAppTheme.pastelRed;

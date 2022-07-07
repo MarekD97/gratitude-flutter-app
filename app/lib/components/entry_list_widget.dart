@@ -11,7 +11,6 @@ class EntryListWidget extends StatefulWidget {
 }
 
 class _EntryListWidgetState extends State<EntryListWidget> {
-
   List<Entry> data = [];
   bool isLoading = false;
   ScrollController scrollController = ScrollController();
@@ -21,8 +20,8 @@ class _EntryListWidgetState extends State<EntryListWidget> {
     super.initState();
     loadEntries();
     scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
+      if (scrollController.position.pixels >=
+          (scrollController.position.maxScrollExtent - 100.0)) {
         loadEntries();
       }
     });

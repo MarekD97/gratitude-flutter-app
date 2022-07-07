@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:app/models/entry_model.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,7 @@ Future<List<Entry>> fetchEntries() async {
 
 // Fetch entries from local file for development purposes
 Future<List<Entry>> fetchLocalEntries() async {
+  await Future.delayed(Duration(milliseconds: Random().nextInt(2500)+500));
   final response = await rootBundle.loadString('assets/entries.json');
 
   List<dynamic> entries = jsonDecode(response);

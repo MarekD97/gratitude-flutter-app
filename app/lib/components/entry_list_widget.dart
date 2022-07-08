@@ -4,7 +4,8 @@ import 'package:app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class EntryListWidget extends StatefulWidget {
-  const EntryListWidget({Key? key}) : super(key: key);
+  final ScrollController scrollController;
+  const EntryListWidget({Key? key, required this.scrollController}) : super(key: key);
 
   @override
   _EntryListWidgetState createState() => _EntryListWidgetState();
@@ -13,21 +14,24 @@ class EntryListWidget extends StatefulWidget {
 class _EntryListWidgetState extends State<EntryListWidget> {
   List<Entry> data = [];
   bool isLoading = false;
-  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     loadEntries();
-    scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-          (scrollController.position.maxScrollExtent - 100.0)) {
+    widget.scrollController.addListener(() {
+      double positionInPixels = widget.scrollController.position.pixels;
+      double maxScrollExtentWithOffset =
+          widget.scrollController.position.maxScrollExtent - 200.0;
+
+      if (!isLoading && positionInPixels >= maxScrollExtentWithOffset) {
         loadEntries();
       }
     });
   }
 
   Future loadEntries() async {
+    if(!mounted) return;
     setState(() {
       isLoading = true;
     });
@@ -37,6 +41,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
       data.addAll(List.generate(result.length, (index) => result[index]));
     });
 
+    if(!mounted) return;
     setState(() {
       isLoading = false;
     });
@@ -44,18 +49,15 @@ class _EntryListWidgetState extends State<EntryListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        controller: scrollController,
-        child: ListView.builder(
-            itemBuilder: (context, i) {
-              if (i == data.length) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return EntryCardWidget(text: data[i].content);
-            },
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemExtent: 200.0,
-            itemCount: data.length + 1));
+    return ListView.builder(
+        controller: widget.scrollController,
+        itemBuilder: (context, i) {
+          if (i == data.length) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return EntryCardWidget(text: data[i].content);
+        },
+        itemExtent: 200.0,
+        itemCount: data.length + 1);
   }
 }

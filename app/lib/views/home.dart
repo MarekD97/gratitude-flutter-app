@@ -18,6 +18,7 @@ class _HomeViewState extends State<HomeView> {
       length: 2,
       child: Scaffold(
         body: NestedScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
@@ -79,13 +80,18 @@ class _HomeViewState extends State<HomeView> {
               )
             ];
           },
-          body: TabBarView(
-            children: [
-              const EntryListWidget(),
-              Center(
-                  child:
-                      Text(AppLocalizations.of(context)!.getText("myEntries"))),
-            ],
+          body: Builder(
+            builder: (context) {
+              final innerScrollController = PrimaryScrollController.of(context)!;
+              return TabBarView(
+                children: [
+                  EntryListWidget(scrollController: innerScrollController),
+                  Center(
+                      child:
+                          Text(AppLocalizations.of(context)!.getText("myEntries"))),
+                ],
+              );
+            }
           ),
         ),
         drawer: Drawer(

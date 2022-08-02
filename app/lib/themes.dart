@@ -41,15 +41,18 @@ class GratitudeAppTheme {
 
         // Define the default elevated button theme
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(darkGreen),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
-                )),
-                textStyle: MaterialStateProperty.all<TextStyle>(
-                    const TextStyle(fontSize: 26.0)),
-
-               ), ));
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(darkGreen),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            )),
+            textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 26.0)),
+          ),
+        ),
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: darkGreen),
+        canvasColor: darkGreen);
   }
 }

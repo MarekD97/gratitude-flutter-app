@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class EntryListWidget extends StatefulWidget {
   final ScrollController scrollController;
-  const EntryListWidget({Key? key, required this.scrollController}) : super(key: key);
+  const EntryListWidget({Key? key, required this.scrollController})
+      : super(key: key);
 
   @override
   _EntryListWidgetState createState() => _EntryListWidgetState();
@@ -31,7 +32,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
   }
 
   Future loadEntries() async {
-    if(!mounted) return;
+    if (!mounted) return;
     setState(() {
       isLoading = true;
     });
@@ -41,7 +42,25 @@ class _EntryListWidgetState extends State<EntryListWidget> {
       data.addAll(List.generate(result.length, (index) => result[index]));
     });
 
-    if(!mounted) return;
+    if (!mounted) return;
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future reloadEntries() async {
+    if (!mounted) return;
+    setState(() {
+      isLoading = true;
+    });
+
+    // Load entries
+    await fetchLocalEntries().then((result) {
+      data.clear();
+      data.addAll(List.generate(result.length, (index) => result[index]));
+    });
+
+    if (!mounted) return;
     setState(() {
       isLoading = false;
     });
@@ -49,15 +68,17 @@ class _EntryListWidgetState extends State<EntryListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        controller: widget.scrollController,
-        itemBuilder: (context, i) {
-          if (i == data.length) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return EntryCardWidget(text: data[i].content);
-        },
-        itemExtent: 200.0,
-        itemCount: data.length + 1);
+    return RefreshIndicator(
+        child: ListView.builder(
+            controller: widget.scrollController,
+            itemBuilder: (context, i) {
+              if (i == data.length) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return EntryCardWidget(text: data[i].content);
+            },
+            itemExtent: 200.0,
+            itemCount: data.length + 1),
+        onRefresh: reloadEntries);
   }
 }

@@ -53,6 +53,6 @@ class GratitudeAppTheme {
         ),
         progressIndicatorTheme:
             const ProgressIndicatorThemeData(color: darkGreen),
-        canvasColor: darkGreen);
+        );
   }
 }

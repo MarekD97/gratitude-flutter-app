@@ -79,6 +79,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
             },
             itemExtent: 200.0,
             itemCount: data.length + 1),
-        onRefresh: reloadEntries);
+        onRefresh: reloadEntries,
+    color: Theme.of(context).primaryColor,);
   }
 }

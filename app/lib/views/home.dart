@@ -101,8 +101,8 @@ class _HomeViewState extends State<HomeView> {
             Navigator.pushNamed(context, '/createEntry',
                 arguments: currentTabIndex == 0);
           },
-          backgroundColor: const Color(0xFF377E51),
-          child: const Icon(Icons.add),
+          backgroundColor: Theme.of(context).primaryColor,
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );

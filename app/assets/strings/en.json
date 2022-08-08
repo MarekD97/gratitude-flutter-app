@@ -8,5 +8,9 @@
   "myEntries": "My entries",
   "settings": "Settings",
   "signup": "Sign up",
-  "notLoggedUser": "Uer not logged in"
+  "notLoggedUser": "Uer not logged in",
+  "loginWithGoogle": "Continue with Google",
+  "noAccountQuestion": "You don't have an account?",
+  "email": "Email",
+  "password": "Password"
 }

@@ -8,5 +8,9 @@
   "myEntries": "Moje wpisy",
   "settings": "Ustawienia",
   "signup": "Zarejestruj się",
-  "notLoggedUser": "Użytkownik niezalogowany"
+  "notLoggedUser": "Użytkownik niezalogowany",
+  "loginWithGoogle": "Kontynuuj z Google",
+  "noAccountQuestion": "Nie posiadasz konta?",
+  "email": "Email",
+  "password": "Hasło"
 }

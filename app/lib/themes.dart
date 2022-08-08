@@ -52,11 +52,18 @@ class GratitudeAppTheme {
               const TextStyle(fontSize: 16.0, fontFamily: 'Mali')),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(darkGreen))),
+
       progressIndicatorTheme:
           const ProgressIndicatorThemeData(color: darkGreen),
-      listTileTheme:
-          ListTileThemeData(textColor: Colors.black.withOpacity(0.54), iconColor: Colors.black.withOpacity(0.54)),
+
+      listTileTheme: ListTileThemeData(
+          textColor: Colors.black.withOpacity(0.54),
+          iconColor: Colors.black.withOpacity(0.54)),
       drawerTheme: const DrawerThemeData(backgroundColor: lightGrey),
+      colorScheme: const ColorScheme.light(primary: darkGreen),
     );
   }
 }

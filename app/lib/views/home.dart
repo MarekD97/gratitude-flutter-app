@@ -1,4 +1,5 @@
 import 'package:app/components/entry_list_widget.dart';
+import 'package:app/components/main_drawer_widget.dart';
 import 'package:app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -94,41 +95,10 @@ class _HomeViewState extends State<HomeView> {
             }
           ),
         ),
-        drawer: Drawer(
-          child: Column(
-            children: [
-              DrawerHeader(
-                  child:
-                      Text(AppLocalizations.of(context)!.getText("appMenu"))),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.getText("aboutApp")),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.getText("settings")),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              const Spacer(),
-              ListTile(
-                  title: Text(AppLocalizations.of(context)!.getText("login")),
-                  onTap: () {
-                    Navigator.pop(context);
-                  }),
-              ListTile(
-                  title: Text(AppLocalizations.of(context)!.getText("signup")),
-                  onTap: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          ),
-        ),
+        drawer: const MainDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/create',
+            Navigator.pushNamed(context, '/createEntry',
                 arguments: currentTabIndex == 0);
           },
           backgroundColor: const Color(0xFF377E51),

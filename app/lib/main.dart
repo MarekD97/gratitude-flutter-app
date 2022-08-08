@@ -17,11 +17,11 @@ void main() {
       // When navigating to the "/" route, build the HomeScreen widget.
       '/': (context) => const HomeView(),
       '/createEntry': (context) => const CreateEntryView(),
-      '/deleteEntry': (context) => Container(),
-      '/signup': (context) => Container(),
-      '/login': (context) => Container(),
-      '/settings': (context) => Container(),
-      '/about': (context) => Container(),
+      '/deleteEntry': (context) => const Text("Delete entry"),
+      '/signup': (context) => const Text("Signup"),
+      '/login': (context) => const Text("Login"),
+      '/settings': (context) => const Text("Settings"),
+      '/about': (context) => const Text("About"),
     },
     theme: GratitudeAppTheme.lightTheme,
     localizationsDelegates: const [

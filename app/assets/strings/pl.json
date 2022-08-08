@@ -1,10 +1,12 @@
 {
-  "aboutApp": "O aplikacji",
+  "aboutApp": "Informacje",
   "appMenu": "Menu aplikacji",
   "gratefulDay": "Dzień wdzięczności",
   "gratitude": "Wdzięcznica",
   "login": "Zaloguj się",
+  "logout": "Wyloguj się",
   "myEntries": "Moje wpisy",
   "settings": "Ustawienia",
-  "signup": "Zarejestruj się"
+  "signup": "Zarejestruj się",
+  "notLoggedUser": "Użytkownik niezalogowany"
 }

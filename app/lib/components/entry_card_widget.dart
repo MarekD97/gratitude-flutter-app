@@ -11,11 +11,11 @@ class EntryCardWidget extends StatelessWidget {
       : super(key: key);
 
   final VoidCallback? onFavoritePressed;
-  final VoidCallback? onReportPressed;
+  final Function(String value)? onReportPressed;
   final String text;
 
   Color randomColor() {
-    int randomNumber = (text.codeUnitAt(0)+text.codeUnitAt(1))%3;
+    int randomNumber = (text.codeUnitAt(0) + text.codeUnitAt(1)) % 3;
     switch (randomNumber) {
       case 0:
         return GratitudeAppTheme.pastelRed;
@@ -56,10 +56,17 @@ class EntryCardWidget extends StatelessWidget {
                     onPressed: onFavoritePressed,
                     icon: Icon(Icons.favorite,
                         color: Colors.black.withOpacity(0.54))),
-                IconButton(
-                    onPressed: onReportPressed,
-                    icon: Icon(Icons.report,
-                        color: Colors.black.withOpacity(0.54))),
+                PopupMenuButton(
+                  onSelected: onReportPressed,
+                  itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem(
+                        value: 'report',
+                        child: Text("Report entry"),
+                      ),
+                    ];
+                  },
+                ),
               ],
             ),
           ),

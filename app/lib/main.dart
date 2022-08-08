@@ -16,8 +16,12 @@ void main() {
     routes: {
       // When navigating to the "/" route, build the HomeScreen widget.
       '/': (context) => const HomeView(),
-      '/my': (context) => Container(),
-      '/create': (context) => const CreateEntryView(),
+      '/createEntry': (context) => const CreateEntryView(),
+      '/deleteEntry': (context) => Container(),
+      '/signup': (context) => Container(),
+      '/login': (context) => Container(),
+      '/settings': (context) => Container(),
+      '/about': (context) => Container(),
     },
     theme: GratitudeAppTheme.lightTheme,
     localizationsDelegates: const [
@@ -42,8 +46,7 @@ class AppLocalizations {
 
 late Map<String, dynamic> language;
 
-class AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override

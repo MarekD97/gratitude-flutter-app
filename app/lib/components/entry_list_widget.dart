@@ -43,7 +43,7 @@ class _EntryListWidgetState extends State<EntryListWidget> {
     await fetchEntries(currentPage + 1).then((result) {
       print(currentPage);
       data.addAll(List.generate(result.length, (index) => result[index]));
-      currentPage +=1;
+      currentPage += 1;
     });
 
     if (!mounted) return;
@@ -74,17 +74,26 @@ class _EntryListWidgetState extends State<EntryListWidget> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        child: ListView.builder(
-            controller: widget.scrollController,
-            itemBuilder: (context, i) {
-              if (i == data.length) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return EntryCardWidget(text: data[i].content);
-            },
-            itemExtent: 200.0,
-            itemCount: data.length + 1),
-        onRefresh: reloadEntries,
-    color: Theme.of(context).primaryColor,);
+      child: ListView.builder(
+          controller: widget.scrollController,
+          itemBuilder: (context, i) {
+            if (i == data.length) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return EntryCardWidget(
+              text: data[i].content,
+              onReportPressed: (String value) {
+                print("Entry of ID: ${data[i].entryId} was reported");
+              },
+              onFavoritePressed: () {
+                print("Entry of ID: ${data[i].entryId} was added to Favourite");
+              },
+            );
+          },
+          itemExtent: 200.0,
+          itemCount: data.length + 1),
+      onRefresh: reloadEntries,
+      color: Theme.of(context).primaryColor,
+    );
   }
 }

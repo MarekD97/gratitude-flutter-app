@@ -49,7 +49,7 @@ class GratitudeAppTheme {
           )),
           padding: MaterialStateProperty.all(const EdgeInsets.all(8.0)),
           textStyle: MaterialStateProperty.all<TextStyle>(
-              const TextStyle(fontSize: 16.0)),
+              const TextStyle(fontSize: 16.0, fontFamily: 'Mali')),
         ),
       ),
       progressIndicatorTheme:

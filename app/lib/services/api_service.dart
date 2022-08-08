@@ -6,14 +6,17 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
-String apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+String apiUrl = 'http://192.168.2.11:8000/api/entries/';
 
 // Fetch entries from API
-Future<List<Entry>> fetchEntries() async {
-  final response = await http.get(Uri.parse(apiUrl));
+Future<List<Entry>> fetchEntries([int currentPage = 1]) async {
+  final response = await http.get(Uri.parse('$apiUrl?page=$currentPage'));
 
+  final body = jsonDecode(response.body);
+  final results = body['results'];
+  List<Entry> entries = List<Entry>.from(results.map((entry) => Entry.fromJson(entry)).toList());
   if(response.statusCode == 200) {
-    return jsonDecode(response.body).map((entry) => Entry.fromJson(entry)).toList();
+    return entries;
   } else {
     throw Exception('Failed to load entries');
   }

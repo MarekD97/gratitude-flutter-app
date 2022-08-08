@@ -16,6 +16,8 @@ class _EntryListWidgetState extends State<EntryListWidget> {
   List<Entry> data = [];
   bool isLoading = false;
 
+  int currentPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -38,8 +40,10 @@ class _EntryListWidgetState extends State<EntryListWidget> {
     });
 
     // Load more entries
-    await fetchLocalEntries().then((result) {
+    await fetchEntries(currentPage + 1).then((result) {
+      print(currentPage);
       data.addAll(List.generate(result.length, (index) => result[index]));
+      currentPage +=1;
     });
 
     if (!mounted) return;
@@ -55,9 +59,10 @@ class _EntryListWidgetState extends State<EntryListWidget> {
     });
 
     // Load entries
-    await fetchLocalEntries().then((result) {
+    await fetchEntries().then((result) {
       data.clear();
       data.addAll(List.generate(result.length, (index) => result[index]));
+      currentPage = 1;
     });
 
     if (!mounted) return;

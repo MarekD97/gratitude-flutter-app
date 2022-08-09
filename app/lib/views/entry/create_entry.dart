@@ -1,121 +1,100 @@
-import 'dart:developer';
-
+import 'package:app/main.dart';
 import 'package:flutter/material.dart';
 
 class CreateEntryView extends StatefulWidget {
   const CreateEntryView({Key? key}) : super(key: key);
 
   @override
-  _CreateEntryViewState createState() => _CreateEntryViewState();
+  State<CreateEntryView> createState() => _CreateEntryViewState();
 }
 
 class _CreateEntryViewState extends State<CreateEntryView> {
-  bool published = false;
+  bool? published;
 
-  int charactersNum = 0;
-
-  RichText charactersNumText() {
-    TextStyle? textStyle = Theme.of(context).textTheme.bodyText1;
-    if (charactersNum > 150) {
-      textStyle = TextStyle(color: Colors.red[900]);
-    }
-    return RichText(
-        text: TextSpan(children: <TextSpan>[
-      TextSpan(
-        text: charactersNum.toString(),
-        style: textStyle,
-      ),
-      TextSpan(
-        text: '/150',
-        style: textStyle,
-      )
-    ]));
+  void handlePublishChange([bool? value]) {
+    setState(() {
+      if (value == null) {
+        published = false;
+      } else {
+        published = value;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    published = ModalRoute.of(context)!.settings.arguments as bool;
+    published ??= ModalRoute.of(context)!.settings.arguments as bool;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 42.0),
-                child: const Text(
-                  "Dziś wdzięczny jestem za...",
-                  style: TextStyle(
-                      fontSize: 36.0,
-                      color: Color(0xFF377E51),
-                      fontWeight: FontWeight.w600),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                  )
-                ]),
-                child: TextFormField(
-                  validator: (value) {
-                    if(value == null || value.isEmpty || value.length > 150) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  minLines: 6,
-                  maxLines: 10,
-                  onChanged: (event) {
-                    int count = event.characters.length;
-                    setState(() {
-                      charactersNum = count;
-                    });
-                  },
-                ),
-              ),
-              Row(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          title: Text(AppLocalizations.of(context)!.getText("createEntry")),
+        ),
+        body: CustomScrollView(slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  charactersNumText(),
-                ],
-                mainAxisAlignment: MainAxisAlignment.end,
-              ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    log(published ? "Opublikowany" : "Nieopublikowany");
-                  },
-                  child: const SizedBox(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Zapisz",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'Mali'),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      style: const TextStyle(fontSize: 20.0),
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        hintText: AppLocalizations.of(context)!
+                            .getText("todayIamGrateful"),
+                        fillColor: Theme.of(context).primaryColor,
                       ),
+                      minLines: 6,
+                      maxLines: 12,
+                      maxLength: 250,
+                    ),
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.12), blurRadius: 2),
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.24),
+                          blurRadius: 2,
+                          offset: const Offset(0, 2)),
+                    ], color: Colors.white),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: published,
+                          onChanged: handlePublishChange,
+                          activeColor: Theme.of(context).primaryColor,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.getText("public"),
+                          style: const TextStyle(fontSize: 20.0),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                margin: const EdgeInsets.symmetric(vertical: 20.0),
+                  const Spacer(),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          // TODO: implement create new entry feature
+                        },
+                        child: Text(
+                            AppLocalizations.of(context)!.getText("save"))),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          )
+        ]));
   }
 }

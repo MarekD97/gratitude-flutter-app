@@ -15,5 +15,10 @@
   "email": "Email",
   "password": "Password",
   "newPassword": "New password",
-  "confirmPassword": "Confirm password"
+  "confirmPassword": "Confirm password",
+  "createEntry": "Create new entry",
+  "public": "Public",
+  "nonPublic": "Nonpublic",
+  "save": "Save",
+  "todayIamGrateful": "Today I am grateful for..."
 }

@@ -15,5 +15,10 @@
   "email": "Email",
   "password": "Hasło",
   "newPassword": "Nowe hasło",
-  "confirmPassword": "Potwierdź hasło"
+  "confirmPassword": "Potwierdź hasło",
+  "createEntry": "Stwórz nowy wpis",
+  "public": "Publiczny",
+  "nonPublic": "Niepubliczny",
+  "save": "Zapisz",
+  "todayIamGrateful": "Dzisiaj jestem wdzięczny za..."
 }

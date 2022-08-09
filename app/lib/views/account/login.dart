@@ -9,6 +9,19 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void handleLogin() {
+    // TODO: implement validation
+    // TODO: implement login with email
+  }
+
+  void handleLoginWithGoogle() {
+    // TODO: implement login with Google
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +56,7 @@ class _LoginViewState extends State<LoginView> {
                           prefixIcon: const Icon(Icons.alternate_email_rounded),
                           fillColor: Theme.of(context).primaryColor,
                         ),
+                        controller: emailController,
                       ),
                     ),
                     Container(
@@ -55,19 +69,20 @@ class _LoginViewState extends State<LoginView> {
                             contentPadding: const EdgeInsets.only(top: 12.0),
                             hintText: AppLocalizations.of(context)!.getText("password"),
                             prefixIcon: const Icon(Icons.lock)),
+                        controller: passwordController,
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: handleLogin,
                           child: Text(
                               AppLocalizations.of(context)!.getText("login"))),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: handleLoginWithGoogle,
                           child: Stack(children: [
                             Align(
                               alignment: Alignment.centerLeft,
@@ -94,7 +109,7 @@ class _LoginViewState extends State<LoginView> {
                         Text(AppLocalizations.of(context)!.getText("noAccountQuestion")),
                         TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/signup');
+                              Navigator.pushReplacementNamed(context, '/signup');
                             },
                             child: Text(AppLocalizations.of(context)!.getText("signup"),))
                       ],

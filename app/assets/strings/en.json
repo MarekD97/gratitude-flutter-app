@@ -10,7 +10,10 @@
   "signup": "Sign up",
   "notLoggedUser": "Uer not logged in",
   "loginWithGoogle": "Continue with Google",
-  "noAccountQuestion": "You don't have an account?",
+  "accountQuestion": "Already have an account?",
+  "noAccountQuestion": "Don't have an account yet?",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "newPassword": "New password",
+  "confirmPassword": "Confirm password"
 }

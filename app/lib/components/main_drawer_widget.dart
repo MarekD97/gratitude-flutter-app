@@ -40,6 +40,7 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(context, '/settings');
             },
           ),
@@ -55,6 +56,7 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(context, '/about');
             },
           ),
@@ -76,6 +78,7 @@ class MainDrawer extends StatelessWidget {
                 child: ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.getText("login")),
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.pushNamed(context, '/login');
                   },
                 )),
@@ -86,6 +89,7 @@ class MainDrawer extends StatelessWidget {
                 child: ElevatedButton(
                   child: Text(AppLocalizations.of(context)!.getText("signup")),
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.pushNamed(context, '/signup');
                   },
                 )),

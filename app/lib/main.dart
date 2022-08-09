@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:app/views/entry/create_entry.dart';
 import 'package:app/views/home.dart';
 import 'package:app/views/account/login.dart';
+import 'package:app/views/account/signup.dart';
 import 'package:app/themes.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,7 +20,7 @@ void main() {
       '/': (context) => const HomeView(),
       '/createEntry': (context) => const CreateEntryView(),
       '/deleteEntry': (context) => const Text("Delete entry"),
-      '/signup': (context) => const Text("Signup"),
+      '/signup': (context) => const SignupView(),
       '/login': (context) => const LoginView(),
       '/settings': (context) => const Text("Settings"),
       '/about': (context) => const Text("About"),

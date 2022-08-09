@@ -10,7 +10,10 @@
   "signup": "Zarejestruj się",
   "notLoggedUser": "Użytkownik niezalogowany",
   "loginWithGoogle": "Kontynuuj z Google",
-  "noAccountQuestion": "Nie posiadasz konta?",
+  "accountQuestion": "Posiadasz już konto?",
+  "noAccountQuestion": "Nie posiadasz jeszcze konta?",
   "email": "Email",
-  "password": "Hasło"
+  "password": "Hasło",
+  "newPassword": "Nowe hasło",
+  "confirmPassword": "Potwierdź hasło"
 }

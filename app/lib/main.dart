@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:app/views/entry/create_entry.dart';
-import 'package:app/views/home.dart';
+import 'package:app/themes.dart';
+import 'package:app/views/about.dart';
 import 'package:app/views/account/login.dart';
 import 'package:app/views/account/signup.dart';
-import 'package:app/themes.dart';
+import 'package:app/views/entry/create_entry.dart';
+import 'package:app/views/home.dart';
+import 'package:app/views/settings.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -22,8 +23,8 @@ void main() {
       '/deleteEntry': (context) => const Text("Delete entry"),
       '/signup': (context) => const SignupView(),
       '/login': (context) => const LoginView(),
-      '/settings': (context) => const Text("Settings"),
-      '/about': (context) => const Text("About"),
+      '/settings': (context) => const SettingsView(),
+      '/about': (context) => const AboutView(),
     },
     theme: GratitudeAppTheme.lightTheme,
     localizationsDelegates: const [

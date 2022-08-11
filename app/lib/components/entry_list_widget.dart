@@ -41,7 +41,6 @@ class _EntryListWidgetState extends State<EntryListWidget> {
 
     // Load more entries
     await fetchEntries(currentPage + 1).then((result) {
-      print(currentPage);
       data.addAll(List.generate(result.length, (index) => result[index]));
       currentPage += 1;
     });

@@ -1,6 +1,6 @@
 import 'package:app/components/entry_list_widget.dart';
 import 'package:app/components/main_drawer_widget.dart';
-import 'package:app/main.dart';
+import 'package:app/localization/app_language.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -81,19 +81,17 @@ class _HomeViewState extends State<HomeView> {
               )
             ];
           },
-          body: Builder(
-            builder: (context) {
-              final innerScrollController = PrimaryScrollController.of(context)!;
-              return TabBarView(
-                children: [
-                  EntryListWidget(scrollController: innerScrollController),
-                  Center(
-                      child:
-                          Text(AppLocalizations.of(context)!.getText("myEntries"))),
-                ],
-              );
-            }
-          ),
+          body: Builder(builder: (context) {
+            final innerScrollController = PrimaryScrollController.of(context)!;
+            return TabBarView(
+              children: [
+                EntryListWidget(scrollController: innerScrollController),
+                Center(
+                    child: Text(
+                        AppLocalizations.of(context)!.getText("myEntries"))),
+              ],
+            );
+          }),
         ),
         drawer: const MainDrawer(),
         floatingActionButton: FloatingActionButton(

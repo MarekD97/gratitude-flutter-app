@@ -1,5 +1,5 @@
+import 'package:app/localization/app_language.dart';
 import 'package:flutter/material.dart';
-import 'package:app/main.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
+import 'package:app/localization/app_language.dart';
 import 'package:flutter/material.dart';
-import 'package:app/main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -9,7 +9,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -41,7 +40,8 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text(AppLocalizations.of(context)!.getText("login"),
+                      child: Text(
+                          AppLocalizations.of(context)!.getText("login"),
                           style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 20.0,
@@ -52,7 +52,8 @@ class _LoginViewState extends State<LoginView> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(top: 12.0),
-                          hintText: AppLocalizations.of(context)!.getText("email"),
+                          hintText:
+                              AppLocalizations.of(context)!.getText("email"),
                           prefixIcon: const Icon(Icons.alternate_email_rounded),
                           fillColor: Theme.of(context).primaryColor,
                         ),
@@ -67,7 +68,8 @@ class _LoginViewState extends State<LoginView> {
                         autocorrect: false,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(top: 12.0),
-                            hintText: AppLocalizations.of(context)!.getText("password"),
+                            hintText: AppLocalizations.of(context)!
+                                .getText("password"),
                             prefixIcon: const Icon(Icons.lock)),
                         controller: passwordController,
                       ),
@@ -94,7 +96,8 @@ class _LoginViewState extends State<LoginView> {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                AppLocalizations.of(context)!.getText("loginWithGoogle"),
+                                AppLocalizations.of(context)!
+                                    .getText("loginWithGoogle"),
                                 style: const TextStyle(color: Colors.black),
                               ),
                             ),
@@ -106,12 +109,16 @@ class _LoginViewState extends State<LoginView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(AppLocalizations.of(context)!.getText("noAccountQuestion")),
+                        Text(AppLocalizations.of(context)!
+                            .getText("noAccountQuestion")),
                         TextButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(context, '/signup');
+                              Navigator.pushReplacementNamed(
+                                  context, '/signup');
                             },
-                            child: Text(AppLocalizations.of(context)!.getText("signup"),))
+                            child: Text(
+                              AppLocalizations.of(context)!.getText("signup"),
+                            ))
                       ],
                     )
                   ],

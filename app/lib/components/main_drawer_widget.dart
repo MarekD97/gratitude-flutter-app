@@ -1,5 +1,5 @@
+import 'package:app/localization/app_language.dart';
 import 'package:flutter/material.dart';
-import 'package:app/main.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key, this.authenticated = false}) : super(key: key);

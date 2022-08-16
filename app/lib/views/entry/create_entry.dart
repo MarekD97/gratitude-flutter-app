@@ -1,4 +1,4 @@
-import 'package:app/main.dart';
+import 'package:app/localization/app_language.dart';
 import 'package:flutter/material.dart';
 
 class CreateEntryView extends StatefulWidget {

@@ -47,36 +47,36 @@ class _HomeViewState extends State<HomeView> {
                   },
                 ),
                 actions: <Widget>[
-                  PopupMenuButton<String>(
-                    itemBuilder: (context) => [
-                      const PopupMenuItem(
-                        child: ListTile(
-                          title: Text("Sortuj:"),
-                        ),
-                        enabled: false,
-                      ),
-                      PopupMenuItem(
-                        child: RadioListTile(
-                          title: const Text('Od najstarszych'),
-                          activeColor: Theme.of(context).primaryColor,
-                          value: 1,
-                          onChanged: (value) {},
-                          groupValue: 1,
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: RadioListTile(
-                          title: const Text('Od najnowszych'),
-                          activeColor: Theme.of(context).primaryColor,
-                          value: 1,
-                          onChanged: (value) {},
-                          groupValue: 2,
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // PopupMenuButton<String>(
+                  //   itemBuilder: (context) => [
+                  //     const PopupMenuItem(
+                  //       child: ListTile(
+                  //         title: Text("Sortuj:"),
+                  //       ),
+                  //       enabled: false,
+                  //     ),
+                  //     PopupMenuItem(
+                  //       child: RadioListTile(
+                  //         title: const Text('Od najstarszych'),
+                  //         activeColor: Theme.of(context).primaryColor,
+                  //         value: 1,
+                  //         onChanged: (value) {},
+                  //         groupValue: 1,
+                  //         controlAffinity: ListTileControlAffinity.trailing,
+                  //       ),
+                  //     ),
+                  //     PopupMenuItem(
+                  //       child: RadioListTile(
+                  //         title: const Text('Od najnowszych'),
+                  //         activeColor: Theme.of(context).primaryColor,
+                  //         value: 1,
+                  //         onChanged: (value) {},
+                  //         groupValue: 2,
+                  //         controlAffinity: ListTileControlAffinity.trailing,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               )
             ];

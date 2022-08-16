@@ -1,3 +1,4 @@
+import 'package:app/services/account_service.dart';
 import 'package:flutter/material.dart';
 
 class SettingsView extends StatefulWidget {
@@ -15,13 +16,25 @@ class _SettingsViewState extends State<SettingsView> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-        body: const CustomScrollView(
+        body: CustomScrollView(
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
               child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text("Settings"),
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              AccountService.deleteUserData();
+                            },
+                            child: const Text("Delete account")),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             )
           ],

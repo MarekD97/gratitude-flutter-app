@@ -3,14 +3,19 @@ import 'dart:convert';
 import 'package:app/constant.dart';
 import 'package:app/models/entry_model.dart';
 import 'package:app/models/user_model.dart';
+import 'package:app/services/account_service.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Entry>> fetchEntries([int currentPage = 1]) async {
+  User? user = await AccountService.loadUserData();
+  if (user == null) {
+    throw Exception('Failed to load entries: User is null');
+  }
+
   final Map<String, String> headers = {
     "app-token": APP_TOKEN,
-    "user-id": "103",
-    "user-token":
-        '8e743d4d211befd5f25f1515e252e3226498bbab4b5db9824e0f54680b0952ab5bd9935c8b65dcbc97d75db34dc59c5739e0137e4a57bff06e0a2a0cfe55701d'
+    "user-id": user.userId.toString(),
+    "user-token": user.userToken
   };
 
   final response = await http.get(

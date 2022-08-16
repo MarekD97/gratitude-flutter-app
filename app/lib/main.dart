@@ -1,4 +1,7 @@
 import 'package:app/localization/app_language.dart';
+import 'package:app/models/user_model.dart';
+import 'package:app/services/account_service.dart';
+import 'package:app/services/api_service.dart';
 import 'package:app/themes.dart';
 import 'package:app/views/about.dart';
 import 'package:app/views/account/login.dart';
@@ -26,6 +29,31 @@ class _GratitudeAppState extends State<GratitudeApp> {
     '/settings': (context) => const SettingsView(),
     '/about': (context) => const AboutView(),
   };
+
+  Future<User> generateNewUserData() async {
+    User newUser = await generateToken();
+    setState(() {
+      AccountService.saveUserData(newUser);
+    });
+    print(
+        "Generated - UserID: ${newUser.userId}, UserToken: ${newUser.userToken}");
+    return newUser;
+  }
+
+  Future<void> loadUserData() async {
+    User? user = await AccountService.loadUserData();
+    if (user == null) {
+      generateNewUserData();
+    } else {
+      print("Loaded - UserID: ${user.userId}, UserToken: ${user.userToken}");
+    }
+  }
+
+  @override
+  void initState() {
+    loadUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

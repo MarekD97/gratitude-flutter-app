@@ -1,32 +1,42 @@
 import 'dart:convert';
-import 'dart:math';
 
+import 'package:app/constant.dart';
 import 'package:app/models/entry_model.dart';
-import 'package:flutter/services.dart';
-
+import 'package:app/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
-String apiUrl = 'http://192.168.2.11:8000/api/entries/';
-
-// Fetch entries from API
 Future<List<Entry>> fetchEntries([int currentPage = 1]) async {
-  final response = await http.get(Uri.parse('$apiUrl?page=$currentPage'));
+  final Map<String, String> headers = {
+    "app-token": APP_TOKEN,
+    "user-id": "103",
+    "user-token":
+        '8e743d4d211befd5f25f1515e252e3226498bbab4b5db9824e0f54680b0952ab5bd9935c8b65dcbc97d75db34dc59c5739e0137e4a57bff06e0a2a0cfe55701d'
+  };
+
+  final response = await http.get(
+      Uri.parse('$API_BASE_URL/api/entries/?page=$currentPage'),
+      headers: headers);
 
   final body = jsonDecode(response.body);
   final results = body['results'];
-  List<Entry> entries = List<Entry>.from(results.map((entry) => Entry.fromJson(entry)).toList());
-  if(response.statusCode == 200) {
+  List<Entry> entries =
+      List<Entry>.from(results.map((entry) => Entry.fromJson(entry)).toList());
+  if (response.statusCode == 200) {
     return entries;
   } else {
     throw Exception('Failed to load entries');
   }
 }
 
-// Fetch entries from local file for development purposes
-Future<List<Entry>> fetchLocalEntries() async {
-  await Future.delayed(Duration(milliseconds: Random().nextInt(2500)+500));
-  final response = await rootBundle.loadString('assets/entries.json');
+Future<User> generateToken() async {
+  final response = await http.get(
+      Uri.parse('$API_BASE_URL/api/generate-token/'),
+      headers: {"app-token": APP_TOKEN});
 
-  List<dynamic> entries = jsonDecode(response);
-  return entries.map((entry) => Entry.fromJson(entry)).toList();
+  if (response.statusCode == 201) {
+    final user = jsonDecode(response.body);
+    return User.fromJson(user);
+  } else {
+    throw Exception("Failed to generate token");
+  }
 }

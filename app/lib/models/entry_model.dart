@@ -8,23 +8,23 @@ class Entry {
   final DateTime createdAt;
   final EntryStatus entryStatus;
 
-  const Entry({
-    required this.entryId,
-    required this.content,
-    required this.userId,
-    required this.public,
-    required this.createdAt,
-    required this.entryStatus
-  });
+  const Entry(
+      {required this.entryId,
+      required this.content,
+      required this.userId,
+      required this.public,
+      required this.createdAt,
+      required this.entryStatus});
 
   factory Entry.fromJson(Map<String, dynamic> json) {
     return Entry(
       entryId: json['id'],
       content: json['content'],
       userId: json['user'],
-      public: json['is_public'] as bool,
+      public: json['is_public'] != null ? json['is_public'] as bool : false,
       createdAt: DateTime.parse(json['date']),
-      entryStatus: EntryStatus.values.byName(json['status'].toString().toLowerCase()),
+      entryStatus:
+          EntryStatus.values.byName(json['status'].toString().toLowerCase()),
     );
   }
 }

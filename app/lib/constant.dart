@@ -1,0 +1,3 @@
+const String APP_TOKEN =
+    'bcc4bb2a977a0e246bfea4b422f2ab5b16f281bb0862241afa655032fa831cf15442b9b3fc0009ddad51477dddbaa48b6caf1a4590ddd66f995d870560453095';
+const String API_BASE_URL = 'http://192.168.2.11:8000';

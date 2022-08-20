@@ -13,57 +13,69 @@ class GratitudeAppTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      // Define the default brightness and colors.
-      brightness: Brightness.light,
-      primaryColor: darkGreen,
-      backgroundColor: Colors.white,
-      textTheme: const TextTheme(
-          bodyText1: TextStyle(
-        color: darkGreen,
-      )),
-
-      // Define the default font family
-      fontFamily: 'Mali',
-
-      // Define the default app bar theme
-      appBarTheme: const AppBarTheme(
+        // Define the default brightness and colors.
+        brightness: Brightness.light,
+        primaryColor: darkGreen,
         backgroundColor: Colors.white,
-        foregroundColor: darkGreen,
-      ),
+        textTheme: const TextTheme(
+            bodyText1: TextStyle(
+          color: darkGreen,
+        )),
 
-      // Define the default tab bar theme
-      tabBarTheme: const TabBarTheme(
-        labelColor: darkGreen,
-        unselectedLabelColor: darkGrey,
-        indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(color: darkGreen, width: 2.0)),
-      ),
+        // Define the default font family
+        fontFamily: 'Mali',
 
-      // Define the default elevated button theme
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(darkGreen),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24.0),
-          )),
-          padding: MaterialStateProperty.all(const EdgeInsets.all(8.0)),
-          textStyle: MaterialStateProperty.all<TextStyle>(
-              const TextStyle(fontSize: 16.0, fontFamily: 'Mali')),
+        // Define the default app bar theme
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: darkGreen,
         ),
-      ),
-      textButtonTheme: TextButtonThemeData(
+
+        // Define the default tab bar theme
+        tabBarTheme: const TabBarTheme(
+          labelColor: darkGreen,
+          unselectedLabelColor: darkGrey,
+          indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(color: darkGreen, width: 2.0)),
+        ),
+
+        // Define the default elevated button theme
+        elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(darkGreen))),
-
-      progressIndicatorTheme:
-          const ProgressIndicatorThemeData(color: darkGreen),
-
-      listTileTheme: ListTileThemeData(
-          textColor: Colors.black.withOpacity(0.54),
-          iconColor: Colors.black.withOpacity(0.54)),
-      drawerTheme: const DrawerThemeData(backgroundColor: lightGrey),
-      colorScheme: const ColorScheme.light(primary: darkGreen),
-    );
+            backgroundColor: MaterialStateProperty.all<Color>(darkGreen),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            )),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+            textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 16.0, fontFamily: 'Mali')),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(darkGreen))),
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: darkGreen),
+        listTileTheme: ListTileThemeData(
+            textColor: Colors.black.withOpacity(0.54),
+            iconColor: Colors.black.withOpacity(0.54)),
+        drawerTheme: const DrawerThemeData(backgroundColor: lightGrey),
+        colorScheme: const ColorScheme.light(primary: darkGreen),
+        chipTheme: const ChipThemeData(
+          backgroundColor: lightGrey,
+          secondaryLabelStyle: TextStyle(color: Colors.white),
+          disabledColor: lightGrey,
+          selectedColor: darkGreen,
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 12.0,
+            fontFamily: 'Mali',
+            color: darkGrey,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          secondarySelectedColor: darkGreen,
+          brightness: Brightness.light,
+        ));
   }
 }

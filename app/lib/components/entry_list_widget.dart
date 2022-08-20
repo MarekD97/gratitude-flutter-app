@@ -1,4 +1,5 @@
 import 'package:app/components/entry_card_widget.dart';
+import 'package:app/components/filter_chips_widget.dart';
 import 'package:app/models/entry_model.dart';
 import 'package:app/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -73,24 +74,38 @@ class _EntryListWidgetState extends State<EntryListWidget> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      child: ListView.builder(
-          controller: widget.scrollController,
-          itemBuilder: (context, i) {
-            if (i == data.length) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return EntryCardWidget(
-              text: data[i].content,
-              onReportPressed: (String value) {
-                print("Entry of ID: ${data[i].entryId} was reported");
-              },
-              onFavoritePressed: () {
-                print("Entry of ID: ${data[i].entryId} was added to Favourite");
-              },
-            );
-          },
-          itemExtent: 200.0,
-          itemCount: data.length + 1),
+      child: Column(
+        children: [
+          FilterChipsWidget(
+            filters: ["Zatwierdzone", "Niezatwierdzone", "Wszystkie"],
+            onFilterChanged: (index) {
+              print(index);
+            },
+          ),
+          Expanded(
+            child: ListView.builder(
+                padding: EdgeInsets.zero,
+                controller: widget.scrollController,
+                itemBuilder: (context, i) {
+                  if (i == data.length) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return EntryCardWidget(
+                    text: data[i].content,
+                    onReportPressed: (String value) {
+                      print("Entry of ID: ${data[i].entryId} was reported");
+                    },
+                    onFavoritePressed: () {
+                      print(
+                          "Entry of ID: ${data[i].entryId} was added to Favourite");
+                    },
+                  );
+                },
+                itemExtent: 200.0,
+                itemCount: data.length + 1),
+          ),
+        ],
+      ),
       onRefresh: reloadEntries,
       color: Theme.of(context).primaryColor,
     );

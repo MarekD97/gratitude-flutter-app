@@ -1,4 +1,5 @@
 import 'package:app/localization/app_language.dart';
+import 'package:app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class CreateEntryView extends StatefulWidget {
@@ -10,6 +11,7 @@ class CreateEntryView extends StatefulWidget {
 
 class _CreateEntryViewState extends State<CreateEntryView> {
   bool? published;
+  final _contentController = TextEditingController();
 
   void handlePublishChange([bool? value]) {
     setState(() {
@@ -18,6 +20,15 @@ class _CreateEntryViewState extends State<CreateEntryView> {
       } else {
         published = value;
       }
+    });
+  }
+
+  Future handleCreateEntry() async {
+    createEntry(_contentController.text).then((entry) {
+      print(entry.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Created new Entry")));
+      Navigator.pop(context);
     });
   }
 
@@ -44,6 +55,7 @@ class _CreateEntryViewState extends State<CreateEntryView> {
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
+                      controller: _contentController,
                       style: const TextStyle(fontSize: 20.0),
                       decoration: InputDecoration(
                         contentPadding:
@@ -85,9 +97,7 @@ class _CreateEntryViewState extends State<CreateEntryView> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ElevatedButton(
-                        onPressed: () {
-                          // TODO: implement create new entry feature
-                        },
+                        onPressed: handleCreateEntry,
                         child: Text(
                             AppLocalizations.of(context)!.getText("save"))),
                   ),

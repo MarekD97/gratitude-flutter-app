@@ -27,4 +27,9 @@ class Entry {
           EntryStatus.values.byName(json['status'].toString().toLowerCase()),
     );
   }
+
+  @override
+  String toString() {
+    return 'Entry: {entryId: $entryId, content: $content, userId: $userId, public: $public, createdAt: $createdAt, entryStatus: $entryStatus}';
+  }
 }

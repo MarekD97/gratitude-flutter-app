@@ -7,4 +7,9 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(userId: json['id'], userToken: json['token']);
   }
+
+  @override
+  String toString() {
+    return 'User: {userId: $userId, userToken: $userToken}';
+  }
 }

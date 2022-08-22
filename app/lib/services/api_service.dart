@@ -22,14 +22,16 @@ Future<List<Entry>> getEntries([int currentPage = 1]) async {
       Uri.parse('$API_BASE_URL/api/entries/?page=$currentPage'),
       headers: headers);
 
-  final body = jsonDecode(response.body);
-  final results = body['results'];
-  List<Entry> entries =
-      List<Entry>.from(results.map((entry) => Entry.fromJson(entry)).toList());
-  if (response.statusCode == 200) {
-    return entries;
-  } else {
-    throw Exception('Failed to load entries');
+  switch (response.statusCode) {
+    case 200:
+      final results = jsonDecode(response.body)['results'];
+      List<Entry> entries = List<Entry>.from(
+          results.map((entry) => Entry.fromJson(entry)).toList());
+      return entries;
+    case 404:
+      return <Entry>[].toList();
+    default:
+      throw Exception('Failed to load entries');
   }
 }
 
@@ -48,10 +50,13 @@ Future<Entry> createEntry(String content) async {
 
   final response = await http.post(Uri.parse('$API_BASE_URL/api/entries/'),
       headers: headers, body: jsonEncode(<String, String>{"content": content}));
-  if (response.statusCode == 201) {
-    return Entry.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to post entry');
+
+  switch (response.statusCode) {
+    case 201:
+      final result = jsonDecode(response.body);
+      return Entry.fromJson(result);
+    default:
+      throw Exception('Failed to post entry');
   }
 }
 

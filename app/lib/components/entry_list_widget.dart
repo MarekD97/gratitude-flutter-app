@@ -16,94 +16,93 @@ class EntryListWidget extends StatefulWidget {
 class _EntryListWidgetState extends State<EntryListWidget> {
   List<Entry> data = [];
   bool isLoading = false;
-
   int currentPage = 0;
+  bool listEnd = false;
 
   @override
   void initState() {
     super.initState();
     loadEntries();
-    widget.scrollController.addListener(() {
-      double positionInPixels = widget.scrollController.position.pixels;
-      double maxScrollExtentWithOffset =
-          widget.scrollController.position.maxScrollExtent - 200.0;
+    addScrollControllerListener();
+  }
 
-      if (!isLoading && positionInPixels >= maxScrollExtentWithOffset) {
+  void addScrollControllerListener() {
+    widget.scrollController.addListener(() {
+      double currentPosition = widget.scrollController.position.pixels;
+      double offset = widget.scrollController.position.maxScrollExtent - 200.0;
+
+      if (!isLoading && currentPosition >= offset) {
         loadEntries();
       }
     });
   }
 
-  Future loadEntries() async {
-    if (!mounted) return;
+  void setLoadingState(bool newState) {
     setState(() {
-      isLoading = true;
-    });
-
-    // Load more entries
-    await getEntries(currentPage + 1).then((result) {
-      data.addAll(List.generate(result.length, (index) => result[index]));
-      currentPage += 1;
-    });
-
-    if (!mounted) return;
-    setState(() {
-      isLoading = false;
+      isLoading = newState;
     });
   }
 
+  Future loadEntries() async {
+    if (!mounted) return;
+    setLoadingState(true);
+
+    // Load more entries
+    await getEntries(currentPage + 1).then((result) {
+      if (result.isEmpty || result.length < 10) {
+        listEnd = true;
+      } else {
+        data.addAll(List.generate(result.length, (index) => result[index]));
+        currentPage += 1;
+      }
+    });
+
+    if (!mounted) return;
+    setLoadingState(false);
+  }
+
   Future reloadEntries() async {
-    if (!mounted) return;
-    setState(() {
-      isLoading = true;
-    });
-
-    // Load entries
-    await getEntries().then((result) {
-      data.clear();
-      data.addAll(List.generate(result.length, (index) => result[index]));
-      currentPage = 1;
-    });
-
-    if (!mounted) return;
-    setState(() {
-      isLoading = false;
-    });
+    currentPage = 0;
+    data.clear();
+    await loadEntries();
   }
 
   @override
   Widget build(BuildContext context) {
+    ListView entryListBuilder = ListView.builder(
+        padding: EdgeInsets.zero,
+        controller: widget.scrollController,
+        itemBuilder: (context, i) {
+          if (i == data.length) {
+            if (listEnd) {
+              return const Center(child: Text('No more data'));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }
+          return EntryCardWidget(
+            text: data[i].content,
+            onReportPressed: (String value) {
+              print("Entry of ID: ${data[i].entryId} was reported");
+            },
+            onFavoritePressed: () {
+              print("Entry of ID: ${data[i].entryId} was added to Favourite");
+            },
+          );
+        },
+        itemExtent: 200.0,
+        itemCount: data.length + 1);
+
     return RefreshIndicator(
       child: Column(
         children: [
           FilterChipsWidget(
-            filters: ["Zatwierdzone", "Niezatwierdzone", "Wszystkie"],
+            filters: const ["Zatwierdzone", "Niezatwierdzone", "Wszystkie"],
             onFilterChanged: (index) {
               print(index);
             },
           ),
-          Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.zero,
-                controller: widget.scrollController,
-                itemBuilder: (context, i) {
-                  if (i == data.length) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return EntryCardWidget(
-                    text: data[i].content,
-                    onReportPressed: (String value) {
-                      print("Entry of ID: ${data[i].entryId} was reported");
-                    },
-                    onFavoritePressed: () {
-                      print(
-                          "Entry of ID: ${data[i].entryId} was added to Favourite");
-                    },
-                  );
-                },
-                itemExtent: 200.0,
-                itemCount: data.length + 1),
-          ),
+          Expanded(child: entryListBuilder),
         ],
       ),
       onRefresh: reloadEntries,
